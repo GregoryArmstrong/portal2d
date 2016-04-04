@@ -2,6 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 
 const Player = require('../lib/player');
+const Projectile = require('../lib/projectile');
 
 describe('Player', function() {
   let player = new Player({});
@@ -19,25 +20,44 @@ describe('Player', function() {
       assert.equal(player.height, 64);
     });
     it('should assign a leftImage value', function(){
-      assert.equal(player.leftImage, 'http://piskel-imgstore-b.appspot.com/img/923c071c-f54a-11e5-9ee4-6b573c758bb1.gif');
+      assert.equal(player.leftImage, './images/chell-left.gif');
     });
     it('should assign a rightImage value', function(){
-      assert.equal(player.rightImage, 'http://piskel-imgstore-b.appspot.com/img/1563a7a3-f54a-11e5-9a92-6b573c758bb1.gif');
+      assert.equal(player.rightImage, './images/chell-right.gif');
     });
     it('should assign an image value', function(){
       assert.equal(player.image, player.rightImage);
+    });
+    it('should assign first default collision', function(){
+      assert.equal(player.collisions[0], [1]);
+    });
+    it('should assign second default collision', function(){
+      assert.equal(player.collisions[1], [3]);
+    });
+    it('should assign a projectileType', function(){
+      assert.equal(player.projectileType, 'blue');
+    });
+    it('should assign a false dead attribute', function(){
+      assert.equal(player.dead, false);
     });
   });
 
   context('functions appropriately change attributes', function(){
     it('moves the player in the y axis', function(){
       player.move();
-      assert.equal(player.y, 21);
+      assert.equal(player.y, 25);
     });
-    it('doesnt move below the bottom boundary', function(){
-      player.y = 550;
+    it('doesnt move below the bottom boundary, and dies', function(){
+      player.y = 620;
       player.hitBottom();
-      assert.equal(player.y, 536);
+      assert.equal(player.y, 576);
+      assert.equal(player.dead, true);
+    });
+    it('can change projectile type', function(){
+      let projectile = new Projectile({});
+      assert.equal(player.projectileType, 'blue');
+      player.setProjectileColor(projectile);
+      assert.equal(projectile.blue, true);
     });
   });
 });
