@@ -13,7 +13,39 @@ canvas {
   text-align: center;
 }
 
-h1 {
+.instructions-container {
+  display: block;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+}
+
+.controls-container {
+  display: block;
+  margin: auto;
+  text-align: center;
+  float: left;
+  padding: 20px;
+}
+
+.tips-container {
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  font-family: 'Play', sans-serif;
+  color: white;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
   font-family: 'Play', sans-serif;
   color: white;
 }
