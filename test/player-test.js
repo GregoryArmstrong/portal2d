@@ -2,6 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 
 const Player = require('../lib/player');
+const Projectile = require('../lib/projectile');
 
 describe('Player', function() {
   let player = new Player({});
@@ -51,6 +52,12 @@ describe('Player', function() {
       player.hitBottom();
       assert.equal(player.y, 576);
       assert.equal(player.dead, true);
+    });
+    it('can change projectile type', function(){
+      let projectile = new Projectile({});
+      assert.equal(player.projectileType, 'blue');
+      player.setProjectileColor(projectile);
+      assert.equal(projectile.blue, true);
     });
   });
 });
