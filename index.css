@@ -1,14 +1,14 @@
 canvas {
   background: grey;
-  padding: 0;
   margin: auto;
-  display: block;
+  display: inline-block;
   text-align: center;
 }
 
 .game-container{
   display: block;
   margin: auto;
+  padding: 10px;
   width: 90%;
   text-align: center;
 }
@@ -52,4 +52,14 @@ li {
 
 body {
   background-color: black;
+}
+
+#left-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#right-wrapper {
+  position: relative;
+  display: inline-block;
 }
