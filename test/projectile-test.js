@@ -49,6 +49,8 @@ describe('Projectile', function() {
   context('functions appropriately change attributes', function(){
     let projectile = new Projectile({x: 50, y: 50, velocity: {x: 5, y: 5}});
     it('should change x and y value upon calling move', function(){
+      assert.equal(projectile.x, 50);
+      assert.equal(projectile.y, 50);
       projectile.move();
       assert.equal(projectile.x, 55);
       assert.equal(projectile.y, 55);

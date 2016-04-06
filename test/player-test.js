@@ -45,12 +45,12 @@ describe('Player', function() {
   context('functions appropriately change attributes', function(){
     it('moves the player in the y axis', function(){
       player.move();
-      assert.equal(player.y, 25);
+      assert.equal(player.y, 55);
     });
     it('doesnt move below the bottom boundary, and dies', function(){
-      player.y = 620;
+      player.y = 621;
       player.hitBottom();
-      assert.equal(player.y, 576);
+      assert.equal(player.y, 620);
       assert.equal(player.dead, true);
     });
     it('can change projectile type', function(){
@@ -58,6 +58,41 @@ describe('Player', function() {
       assert.equal(player.projectileType, 'blue');
       player.setProjectileColor(projectile);
       assert.equal(projectile.blue, true);
+    });
+    it('creates projectile and fires to the left', function(){
+      var projectile = player.fireLeft();
+      assert.equal(player.image, player.leftImage);
+      assert.equal(projectile.blue, true);
+      assert.equal(projectile.x, player.x);
+      assert.equal(projectile.y, player.y + 22);
+    });
+    it('creates projectile and fires up', function(){
+      var projectile = player.fireUp();
+      assert.equal(player.image, player.upImage);
+      assert.equal(projectile.blue, true);
+      assert.equal(projectile.x, player.x + 36);
+      assert.equal(projectile.y, player.y);
+    });
+    it('creates projectile and fires down', function(){
+      var projectile = player.fireDown();
+      assert.equal(player.image, player.downImage);
+      assert.equal(projectile.blue, true);
+      assert.equal(projectile.x, player.x + 12);
+      assert.equal(projectile.y, player.y + 42);
+    });
+    it('creates projectile and fires to the right', function(){
+      var projectile = player.fireRight();
+      assert.equal(player.image, player.rightImage);
+      assert.equal(projectile.blue, true);
+      assert.equal(projectile.x, player.x + 44);
+      assert.equal(projectile.y, player.y + 22);
+    });
+    it('makes player jump up', function(){
+      assert.equal(player.y, 620);
+      player.jump();
+      assert.equal(player.image, player.rightImage);
+      assert.equal(player.x, 10);
+      assert.equal(player.y, 520);
     });
   });
 });
