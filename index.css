@@ -9,14 +9,13 @@ canvas {
   display: block;
   margin: auto;
   padding: 10px;
-  /*width: 90%;*/
   text-align: center;
 }
 
 .instructions-container {
   display: block;
   margin: auto;
-  width: 80%;
+  width: 94%;
   text-align: center;
   padding: 10px;
 }
@@ -75,11 +74,16 @@ body {
 #left-wrapper {
   position: relative;
   display: inline-block;
+  max-height: 500px;
+  margin-bottom: 60px;
 }
 
 #right-wrapper {
   position: relative;
   display: inline-block;
+  max-height: 500px;
+  margin-bottom: 60px;
+
 }
 
 .orange {
