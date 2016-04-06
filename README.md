@@ -7,7 +7,7 @@ A JavaScript 2D version of [Portal](http://www.valvesoftware.com/games/portal.ht
 
 ### How to play
 
-Visit [this link]() to play the game.
+Visit [http://gregoryarmstrong.github.io/portal2d/](http://gregoryarmstrong.github.io/portal2d/) to play the game.
 
 Use the left and right arrow keys to move left and right. The up arrow key will make the player jump. Use the A key to shoot left, the W key to shoot up, the D key to shoot right, and the X key to shoot down. The shift key will change the color of the portal to be created (either orange or blue).
 
