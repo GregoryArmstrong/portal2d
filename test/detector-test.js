@@ -166,4 +166,28 @@ describe('Detector', function(){
       assert.equal(player.y, 180);
     });
   });
+
+  context('detect projectile collisions', function () {
+    it('should open portal if projectile collides with block', function (){
+      let player = new Player({x: 426, y: 130});
+      let block = new Block({x: 64, y: 64, collisions: [2]});
+      let projectile = new Projectile({x: 65, y: 65, collisions: 2, blue: true});
+      let projectiles = {blue: projectile, orange: null};
+      let detector = new Detector(player, [block], projectiles);
+      detector.checkBlockProjectileCollision(projectiles, block);
+
+      assert(block.bluePortal);
+    });
+
+    it('should not open portal if projectile has not collided with block', function (){
+      let player = new Player({x: 426, y: 130});
+      let block = new Block({x: 64, y: 64, collisions: [2]});
+      let projectile = new Projectile({x: 60, y: 60, collisions: 2, blue: true});
+      let projectiles = {blue: projectile, orange: null};
+      let detector = new Detector(player, [block], projectiles);
+      detector.checkBlockProjectileCollision(projectiles, block);
+
+      assert.equal(block.bluePortal, false);
+    });
+  });
 });
