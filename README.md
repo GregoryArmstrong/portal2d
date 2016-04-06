@@ -1,7 +1,7 @@
 # Portal 2D
 
 ## Description
-A JavaScript 2D version of Portal.
+A JavaScript 2D version of [Portal](http://www.valvesoftware.com/games/portal.html).
 
 ![Game In Action]()
 
@@ -21,7 +21,7 @@ Falling into the lava will result in the players death, and the level is automat
 ### Tools
 
 * Javascript
-* Lodash
+* lodash
 * HTML 5 Canvas
 * Mocha / Chai
 
