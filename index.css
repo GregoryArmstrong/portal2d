@@ -9,7 +9,7 @@ canvas {
   display: block;
   margin: auto;
   padding: 10px;
-  width: 90%;
+  /*width: 90%;*/
   text-align: center;
 }
 
@@ -57,9 +57,11 @@ body {
 #left-wrapper {
   position: relative;
   display: inline-block;
+  max-height: 300px;
 }
 
 #right-wrapper {
   position: relative;
   display: inline-block;
+  max-height: 300px;
 }
