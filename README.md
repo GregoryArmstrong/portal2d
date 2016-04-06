@@ -1,9 +1,8 @@
 # Portal 2D
 
-## Description
 A JavaScript 2D version of [Portal](http://www.valvesoftware.com/games/portal.html).
 
-![Game In Action]()
+![Game In Action](http://g.recordit.co/VoVZbqxl9f.gif)
 
 ### How to play
 
