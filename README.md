@@ -2,7 +2,9 @@
 
 A JavaScript 2D version of [Portal](http://www.valvesoftware.com/games/portal.html).
 
-![Game In Action](http://g.recordit.co/VoVZbqxl9f.gif)
+![Game In Action](http://g.recordit.co/pR03Mk2xuc.gif)
+
+See the full demo [here](http://recordit.co/pR03Mk2xuc).
 
 ### How to play
 
