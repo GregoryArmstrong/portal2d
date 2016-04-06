@@ -32,13 +32,19 @@ Falling into the lava will result in the players death, and the level is automat
 
 <img src="https://avatars2.githubusercontent.com/u/13356027?v=3&s=400" alt="Greg Armstrong" width=150>
 
-[Github](https://github.com/GregoryArmstrong) // [Email]()
+[Github](https://github.com/GregoryArmstrong) // [Email](MrGregTArmstrong@gmail.com)
+
+I’m an endlessly inquisitive full-stack developer that thrives on tacking new problems and building long-lasting relationships with those I collaborate with. My previous experiences in spinal cord research and surgery have endowed me with a critical eye and steady hand for crafting adroit, performant code. I am eager to join a team doing meaningful work which will push me to continuously improve my abilities through mentorship while also exposing me to new technologies. Lets improve the world together.
 
 #### Beth Secor
 
 <img src="https://avatars2.githubusercontent.com/u/11467561?v=3&s=460" alt="Beth Secor" width=150>
 
 [Blog](http://bethsecor.github.io/) // [Github](https://github.com/bethsecor) // [Email](mailto:elizabeth.a.secor@gmail.com)
+
+As a full stack developer, I have the ability to balance finishing a project on schedule while also maintaining code quality. I love learning new things and enjoy new challenges. Talking about code with other people is one of my favorite parts about programming.
+
+Before coming to Turing, I studied statistics at UC Berkeley and worked for four years analyzing a range of different data related to neuroscience and public health.
 
 ---
 ### To run locally:
