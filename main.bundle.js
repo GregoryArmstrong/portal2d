@@ -69,8 +69,10 @@
 	var LevelOne = __webpack_require__(2);
 	var LevelTwo = __webpack_require__(13);
 	var LevelThree = __webpack_require__(15);
-	var StartGame = __webpack_require__(17);
-	var Score = __webpack_require__(18);
+	var LevelFour = __webpack_require__(17);
+
+	var StartGame = __webpack_require__(19);
+	var Score = __webpack_require__(20);
 
 	function Game(stage, canvas) {
 	  this.stage = stage;
@@ -91,6 +93,8 @@
 	  } else if (this.stage === 3) {
 	    this.drawLevelThree(context);
 	  } else if (this.stage === 4) {
+	    this.drawLevelFour(context);
+	  } else if (this.stage === 5) {
 	    this.drawEndGame(context);
 	  }
 	};
@@ -196,6 +200,32 @@
 	  if (this.levelThree.detector.levelComplete) {
 	    this.stage = 4;
 	    this.score.levelThreeAttempts += 1;
+	    this.levelFour = new LevelFour(this.canvas);
+	  }
+	};
+
+	Game.prototype.drawLevelFour = function (context) {
+	  this.levelFour.blocks.forEach(function (block) {
+	    block.draw(context);
+	  });
+	  this.levelFour.firstPlayer.draw(context).move();
+	  if (this.levelFour.projectiles.blue) {
+	    this.levelFour.projectiles.blue.draw(context).move();
+	  }
+	  if (this.levelFour.projectiles.orange) {
+	    this.levelFour.projectiles.orange.draw(context).move();
+	  }
+	  this.levelFour.detector.playerCollisions(this.levelFour.firstPlayer, this.levelFour.blocks);
+	  this.levelFour.detector.projectileCollisions(this.levelFour.projectiles, this.levelFour.blocks);
+	  this.levelFour.userInfoDraw.draw(this.levelFour.firstPlayer, context, this.stage, this.score.levelFourAttempts);
+	  if (this.levelFour.firstPlayer.dead) {
+	    alert('Dead!');
+	    this.levelFour = new LevelFour(this.canvas);
+	    this.score.levelFourAttempts += 1;
+	  }
+	  if (this.levelFour.detector.levelComplete) {
+	    this.stage = 5;
+	    this.score.levelFourAttempts += 1;
 	    this.gameNumber += 1;
 	    sessionStorage.setItem('Game ' + this.gameNumber + ' Attempts', this.score.totalAttempts());
 	    this.levelOne = new LevelOne(this.canvas);
@@ -384,7 +414,7 @@
 	      if (projectile.blue && !this.projectiles.blue || projectile.orange && !this.projectiles.orange) {
 	        this.createProjectile(projectile);
 	      }
-	    } else if (event.keyCode === 88) {
+	    } else if (event.keyCode === 83) {
 	      var projectile = this.player.fireDown();
 	      if (projectile.blue && !this.projectiles.blue || projectile.orange && !this.projectiles.orange) {
 	        this.createProjectile(projectile);
@@ -589,7 +619,7 @@
 
 	function Detector(player, blocks, projectiles) {
 	  this.player = player;
-	  // this.blocks = blocks;
+	  this.blocks = blocks;
 	  this.projectiles = projectiles;
 	  this.portals = { blue: null, orange: null };
 	  this.levelComplete = false;
@@ -16934,6 +16964,125 @@
 
 	'use strict';
 
+	var Player = __webpack_require__(3);
+	var Listener = __webpack_require__(4);
+	var LevelFourLayout = __webpack_require__(18);
+	var Detector = __webpack_require__(8);
+	var UserInfoDraw = __webpack_require__(12);
+
+	function LevelFour(canvas, score) {
+	  this.blocks = [];
+	  this.projectiles = { blue: null, orange: null };
+	  this.firstPlayer = new Player({ x: 70, y: 70 });
+	  this.listener = new Listener(canvas, this.firstPlayer, this.projectiles, score);
+	  this.level = new LevelFourLayout(this.blocks);
+	  this.detector = new Detector(this.firstPlayer, this.blocks, this.projectiles);
+	  this.userInfoDraw = new UserInfoDraw();
+	  this.listener.setListeners();
+	  this.level.buildLevel();
+	}
+
+	module.exports = LevelFour;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Block = __webpack_require__(7);
+
+	function LevelFourLayout(blocks) {
+	  this.blocks = blocks;
+	  this.xValues = [0, 64, 128, 192, 256, 320, 384, 448, 512, 576, 640, 704, 768, 832, 896, 960];
+	  this.yValues = [64, 128, 192, 256, 320, 384, 448, 512];
+	}
+
+	LevelFourLayout.prototype.buildLevel = function () {
+	  this.createTopBoundary(this.blocks);
+	  this.createBottomBoundary(this.blocks);
+	  this.createLeftBoundary(this.blocks);
+	  this.createRightBoundary(this.blocks);
+	  this.createLava(this.blocks);
+	  this.addObstacles(this.blocks);
+	  this.addDoor(this.blocks);
+	};
+
+	LevelFourLayout.prototype.createTopBoundary = function (blocks) {
+	  this.xValues.forEach(function (value) {
+	    blocks.push(new Block({ x: value, y: 0, collisions: [3], wall: true }));
+	  });
+	};
+
+	LevelFourLayout.prototype.createBottomBoundary = function (blocks) {
+	  this.xValues.forEach(function (value) {
+	    blocks.push(new Block({ x: value, y: 576, collisions: [1], wall: true }));
+	  });
+	};
+
+	LevelFourLayout.prototype.createLeftBoundary = function (blocks) {
+	  this.yValues.forEach(function (value) {
+	    blocks.push(new Block({ x: 0, y: value, collisions: [1, 2], wall: true }));
+	  });
+	};
+
+	LevelFourLayout.prototype.createRightBoundary = function (blocks) {
+	  this.yValues.forEach(function (value) {
+	    blocks.push(new Block({ x: 960, y: value, collisions: [4], wall: true }));
+	  });
+	};
+
+	LevelFourLayout.prototype.createLava = function (blocks) {
+	  blocks.push(new Block({ x: this.xValues[6], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[7], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[8], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[9], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[10], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[11], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[12], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[13], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	  blocks.push(new Block({ x: this.xValues[14], y: this.yValues[7], image: './images/lava.png', wall: false, lava: true, collisions: [1, 2, 3, 4] }));
+	};
+
+	LevelFourLayout.prototype.addDoor = function (blocks) {
+	  blocks.push(new Block({ x: this.xValues[11], y: this.yValues[1], image: './images/door.png', collisions: [1, 2, 4], wall: false, door: true }));
+	};
+
+	LevelFourLayout.prototype.addObstacles = function (blocks) {
+	  blocks.push(new Block({ x: this.xValues[1], y: this.yValues[1], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[0], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[1], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[2], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[3], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[6], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[3], y: this.yValues[7], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[0], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[1], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[3], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[4], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[5], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[6], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[5], y: this.yValues[7], collisions: [2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[10], y: this.yValues[0], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[10], y: this.yValues[1], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[10], y: this.yValues[2], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[11], y: this.yValues[2], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[12], y: this.yValues[2], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[12], y: this.yValues[4], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[11], y: this.yValues[6], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[14], y: this.yValues[6], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[7], y: this.yValues[5], collisions: [1, 2, 3, 4], wall: true }));
+	  blocks.push(new Block({ x: this.xValues[9], y: this.yValues[4], collisions: [1, 2, 3, 4], wall: true }));
+	};
+
+	module.exports = LevelFourLayout;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var Listener = __webpack_require__(4);
 
 	function StartGame(canvas) {
@@ -16944,7 +17093,7 @@
 	module.exports = StartGame;
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16953,10 +17102,11 @@
 	  this.levelOneAttempts = 0;
 	  this.levelTwoAttempts = 0;
 	  this.levelThreeAttempts = 0;
+	  this.levelFourAttempts = 0;
 	}
 
 	Score.prototype.totalAttempts = function () {
-	  return this.levelOneAttempts + this.levelTwoAttempts + this.levelThreeAttempts;
+	  return this.levelOneAttempts + this.levelTwoAttempts + this.levelThreeAttempts + this.levelFourAttempts;
 	};
 
 	module.exports = Score;
