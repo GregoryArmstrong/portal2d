@@ -16,29 +16,46 @@ canvas {
 .instructions-container {
   display: block;
   margin: auto;
-  width: 50%;
+  width: 80%;
   text-align: center;
   padding: 10px;
 }
 
 .controls-container {
+  position: relative;
   display: block;
-  margin: auto;
-  text-align: center;
+  margin-left: 100px;
   float: left;
-  padding: 20px;
+  text-align: left;
+  font-size: 20px;
+  width: 25%;
+  border: 4px;
+  border-style: outset;
+  border-color: white;
+  padding: 10px;
 }
 
 .tips-container {
+  position: relative;
   display: block;
-  margin: auto;
-  text-align: center;
-  padding: 20px;
+  float: right;
+  text-align: left;
+  font-size: 20px;
+  margin-right: 95px;
+  width: 55%;
+  border: 4px;
+  border-style: outset;
+  border-color: white;
+  padding: 10px;
 }
 
 h1, h2, h3 {
   font-family: 'Play', sans-serif;
   color: white;
+}
+
+h1 {
+  font-size: 35px;
 }
 
 ul {
@@ -48,6 +65,7 @@ ul {
 li {
   font-family: 'Play', sans-serif;
   color: white;
+  margin: 2px;
 }
 
 body {
@@ -57,11 +75,17 @@ body {
 #left-wrapper {
   position: relative;
   display: inline-block;
-  max-height: 300px;
 }
 
 #right-wrapper {
   position: relative;
   display: inline-block;
-  max-height: 300px;
+}
+
+.orange {
+  color: #e04c00;
+}
+
+.blue {
+  color: #037fe1;
 }
