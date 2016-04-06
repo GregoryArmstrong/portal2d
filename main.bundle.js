@@ -51,6 +51,8 @@
 	var context = canvas.getContext('2d');
 
 	var game = new Game(0, canvas);
+	var audio = new Audio('./audio/portal-still-alive.mp3');
+	audio.play();
 
 	requestAnimationFrame(gameLoop);
 
