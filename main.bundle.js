@@ -98,7 +98,7 @@
 	Game.prototype.drawStartGame = function (context) {
 	  var startImage = new Image();
 	  startImage.addEventListener("load", function () {}, false);
-	  startImage.src = '../images/portal-start.png';
+	  startImage.src = './images/portal-start.png';
 	  context.drawImage(startImage, 0, 0, 1024, 640);
 	  this.beginLevelOne();
 	};
