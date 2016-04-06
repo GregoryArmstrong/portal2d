@@ -15,6 +15,9 @@ describe('Score', function() {
     it('should set level three attempts', function(){
       assert.equal(score.levelThreeAttempts, 0);
     });
+    it('should set level four attempts', function(){
+      assert.equal(score.levelFourAttempts, 0);
+    });
   });
 
   context('functions', function() {
@@ -22,7 +25,8 @@ describe('Score', function() {
       score.levelOneAttempts += 2;
       score.levelTwoAttempts += 1;
       score.levelThreeAttempts += 3;
-      assert.equal(score.totalAttempts(), 6);
+      score.levelThreeAttempts += 5;
+      assert.equal(score.totalAttempts(), 11);
     });
   });
 });
