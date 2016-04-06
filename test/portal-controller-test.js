@@ -48,5 +48,22 @@ describe('PortalController', function() {
       assert.equal(portals.blue, block);
       assert.equal(portals.orange, null);
     });
+
+    it('should find and replace a portal', function() {
+      let projectile = new Projectile({x: 10, y: 10, collisions: 4, blue: true});
+      let projectiles = {blue: projectile, orange: null};
+      let bluePortal = new Block({x: 400, y: 130, wall: true});
+      bluePortal.bluePortal = true;
+      bluePortal.portalLocation = 4;
+      let portals = {blue: bluePortal, orange: null};
+      let block = new Block({x: 100, y: 130, wall: true, collisions: [4]});
+
+      assert.equal(portals.blue, bluePortal);
+
+      new PortalController(projectile, portals, block, projectile.collisions, projectiles);
+
+      assert.equal(portals.blue, block);
+      assert.equal(portals.orange, null);
+    });
   });
 });
