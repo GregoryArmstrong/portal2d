@@ -35,7 +35,7 @@ Falling into the lava will result in the players death, and the level is automat
 
 [Github](https://github.com/GregoryArmstrong) // [Email](MrGregTArmstrong@gmail.com)
 
-I’m an endlessly inquisitive full-stack developer that thrives on tacking new problems and building long-lasting relationships with those I collaborate with. My previous experiences in spinal cord research and surgery have endowed me with a critical eye and steady hand for crafting adroit, performant code. I am eager to join a team doing meaningful work which will push me to continuously improve my abilities through mentorship while also exposing me to new technologies. Lets improve the world together.
+I’m an endlessly inquisitive full-stack developer that thrives on taking on new problems and building long-lasting relationships with those I collaborate with. My previous experiences in spinal cord research and surgery have endowed me with a critical eye and steady hand for crafting adroit, performant code. I am eager to join a team doing meaningful work which will push me to continuously improve my abilities through mentorship while also exposing me to new technologies. Lets improve the world together.
 
 #### Beth Secor
 
